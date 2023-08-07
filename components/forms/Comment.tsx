@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { z } from "zod";
-import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { usePathname } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from 'zod';
+import Image from 'next/image';
+import { useForm } from 'react-hook-form';
+import { usePathname } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   Form,
@@ -12,13 +12,14 @@ import {
   FormField,
   FormItem,
   FormLabel,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 
-import { CommentValidation } from "@/lib/validations/thread";
-import { addCommentToThread } from "@/lib/actions/thread.actions";
+import { CommentValidation } from '@/lib/validations/thread';
+import { addCommentToThread } from '@/lib/actions/thread.actions';
+import { useToast } from '@/components/ui/use-toast';
 
 interface Props {
   threadId: string;
@@ -32,7 +33,7 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
   const form = useForm<z.infer<typeof CommentValidation>>({
     resolver: zodResolver(CommentValidation),
     defaultValues: {
-      thread: "",
+      thread: '',
     },
   });
 
@@ -49,34 +50,34 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
 
   return (
     <Form {...form}>
-      <form className='comment-form' onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="comment-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name='thread'
+          name="thread"
           render={({ field }) => (
-            <FormItem className='flex w-full items-center gap-3'>
+            <FormItem className="flex w-full items-center gap-3">
               <FormLabel>
                 <Image
                   src={currentUserImg}
-                  alt='current_user'
+                  alt="current_user"
                   width={48}
                   height={48}
-                  className='rounded-full object-cover'
+                  className="rounded-full object-cover"
                 />
               </FormLabel>
-              <FormControl className='border-none bg-transparent'>
+              <FormControl className="border-none bg-transparent">
                 <Input
-                  type='text'
+                  type="text"
                   {...field}
-                  placeholder='Comment...'
-                  className='no-focus text-light-1 outline-none'
+                  placeholder="Comment..."
+                  className="no-focus text-light-1 outline-none"
                 />
               </FormControl>
             </FormItem>
           )}
         />
 
-        <Button type='submit' className='comment-form_btn'>
+        <Button type="submit" className="comment-form_btn">
           Reply
         </Button>
       </form>
